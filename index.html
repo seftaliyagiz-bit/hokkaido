@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hokkaido Sushi Bar Leuven — Verse Japanse Sushi op Mechelsestraat</title>
+  <meta name="description" content="Hokkaido Sushi Bar op Mechelsestraat 46 Leuven — verse sushi, futomaki, sashimi en nigiri. Afhalen & levering via hokkaido.klikeneet.be. Open 17:00–21:30." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --white:     #ffffff;
+      --off-white: #faf8f5;
+      --coral:     #e8582a;
+      --coral-dk:  #c94a20;
+      --coral-lt:  #f5c4a8;
+      --black:     #000000;
+      --dark:      #111111;
+      --charcoal:  #1a1a1a;
+      --grey:      #6a6a6a;
+      --border:    #e8e0d8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      color: var(--charcoal);
+      background: var(--white);
+      line-height: 1.7;
+    }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── FADE-UP ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 12px 26px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: all 0.22s;
+      border: 2px solid transparent;
+    }
+    .btn-coral { background: var(--coral); color: var(--white); border-color: var(--coral); }
+    .btn-coral:hover { background: var(--coral-dk); border-color: var(--coral-dk); }
+    .btn-white-outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.5); }
+    .btn-white-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+    .btn-white { background: var(--white); color: var(--coral); border-color: var(--white); font-weight: 700; }
+    .btn-white:hover { background: var(--off-white); }
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--white);
+      border-bottom: 1px solid transparent;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    #navbar.scrolled {
+      border-color: var(--coral);
+      box-shadow: 0 2px 16px rgba(232,88,42,0.1);
+    }
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .nav-logo img { max-height: 55px; object-fit: contain; display: block; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-right { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+    .lang-toggle {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      user-select: none;
+      color: var(--coral);
+    }
+    .lang-toggle span { transition: opacity 0.2s; }
+    .lang-toggle span.active { opacity: 1; }
+    .lang-toggle span:not(.active):not(.sep) { opacity: 0.35; }
+    .lang-toggle .sep { margin: 0 4px; color: var(--border); opacity: 1; }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 2px solid var(--coral);
+      padding: 16px 28px 24px;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1rem; font-weight: 500; color: var(--charcoal); padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--coral); }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 28px 80px;
+      background-image: url('images/hero.png');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.60); }
+    .hero-watermark {
+      position: absolute;
+      right: 4%; top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(8rem, 18vw, 16rem);
+      color: rgba(255,255,255,0.035);
+      font-family: serif;
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+      writing-mode: vertical-rl;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; text-align: center; color: var(--white); }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+    }
+    .hero-h1-main {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(3.8rem, 9vw, 7rem);
+      color: var(--white);
+      line-height: 0.9;
+      display: block;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+      margin-bottom: 4px;
+    }
+    .hero-h1-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      color: var(--coral);
+      display: block;
+      margin-bottom: 20px;
+    }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.82); font-style: italic; line-height: 1.6; margin-bottom: 14px; }
+    .hero-quote { font-size: 0.82rem; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 28px; }
+    .hero-icons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hero-icon-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+    .icon-emoji { font-size: 1rem; }
+    .hero-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+    .hero-status { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+    .pulse-dot { width: 8px; height: 8px; background: var(--coral); border-radius: 50%; flex-shrink: 0; animation: pulse 2.2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(1.6); } }
+    .hero-scroll {
+      position: absolute; bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2; color: rgba(255,255,255,0.25); font-size: 1.2rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ══════════════════════════════
+       SECTIONS SHARED
+    ══════════════════════════════ */
+    section { padding: 88px 28px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--coral); margin-bottom: 10px; }
+    .section-label.dark-lbl { color: rgba(255,255,255,0.4); }
+    .section-title { font-size: clamp(1.9rem, 3.5vw, 2.7rem); font-style: italic; line-height: 1.2; margin-bottom: 48px; }
+    .section-title.light { color: var(--white); }
+    .section-title.dark  { color: var(--charcoal); }
+
+    /* ══════════════════════════════
+       PILLAR STRIP
+    ══════════════════════════════ */
+    #pillars { background: var(--off-white); padding: 64px 28px; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .pillar-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 30px 22px;
+      text-align: center;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .pillar-card:hover { border-color: var(--coral); box-shadow: 0 6px 24px rgba(232,88,42,0.12); transform: translateY(-3px); }
+    .pillar-emoji { font-size: 2.2rem; margin-bottom: 12px; display: block; }
+    .pillar-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--charcoal); margin-bottom: 8px; }
+    .pillar-desc { font-size: 0.83rem; color: var(--grey); line-height: 1.6; }
+
+    /* ══════════════════════════════
+       MENU HIGHLIGHTS
+    ══════════════════════════════ */
+    #menu { background: var(--white); }
+    .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 40px; }
+    .spec-card {
+      border: 2px solid var(--coral);
+      border-radius: 10px;
+      padding: 34px 26px;
+      position: relative;
+      background: var(--white);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .spec-card:hover { box-shadow: 0 8px 32px rgba(232,88,42,0.14); transform: translateY(-3px); }
+    .spec-badge {
+      position: absolute; top: -13px; right: 18px;
+      background: var(--coral); color: var(--white);
+      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+    }
+    .spec-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; }
+    .spec-card h3 { font-size: 1.15rem; font-style: italic; margin-bottom: 10px; color: var(--charcoal); }
+    .spec-card p { font-size: 0.88rem; color: var(--grey); line-height: 1.75; }
+    .menu-cta { text-align: center; }
+    .menu-cta a { font-size: 0.95rem; font-weight: 500; color: var(--coral); border-bottom: 1.5px solid var(--coral); padding-bottom: 2px; transition: opacity 0.2s; }
+    .menu-cta a:hover { opacity: 0.7; }
+
+    /* ══════════════════════════════
+       GALLERY
+    ══════════════════════════════ */
+    #gallery { background: var(--dark); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .gallery-item {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .gallery-item:hover { border-color: var(--coral); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-item:hover img { transform: scale(1.07); }
+
+    /* ══════════════════════════════
+       ABOUT
+    ══════════════════════════════ */
+    #about { background: var(--off-white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-img img { width: 100%; border-radius: 12px; border: 3px solid var(--coral); object-fit: cover; max-height: 500px; box-shadow: 0 8px 40px rgba(232,88,42,0.15); }
+    .about-sub { font-style: italic; color: var(--grey); margin-bottom: 18px; font-size: 1rem; }
+    .about-body { font-size: 0.95rem; color: var(--grey); line-height: 1.85; margin-bottom: 28px; }
+    .about-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+    .about-stat {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.82rem; font-weight: 500; color: var(--charcoal);
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 7px 14px;
+      box-shadow: 0 2px 8px rgba(232,88,42,0.06);
+    }
+    .about-stat i { color: var(--coral); font-size: 0.78rem; }
+
+    /* ══════════════════════════════
+       REVIEWS
+    ══════════════════════════════ */
+    #reviews { background: var(--white); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 36px; }
+    .review-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 28px 22px;
+      background: var(--off-white);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .review-card:hover { box-shadow: 0 6px 24px rgba(232,88,42,0.1); transform: translateY(-2px); }
+    .review-stars { color: var(--coral); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 12px; }
+    .review-text { font-size: 0.88rem; color: var(--grey); font-style: italic; line-height: 1.75; margin-bottom: 14px; }
+    .review-source { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--coral); }
+    .reviews-cta { text-align: center; }
+    .reviews-cta a {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.87rem; font-weight: 500; color: var(--grey);
+      border: 1.5px solid var(--border); border-radius: 6px;
+      padding: 12px 22px; background: var(--off-white);
+      transition: all 0.2s;
+    }
+    .reviews-cta a:hover { border-color: var(--coral); color: var(--coral); }
+
+    /* ══════════════════════════════
+       HOW TO ORDER
+    ══════════════════════════════ */
+    #order { background: var(--coral); padding: 80px 28px; text-align: center; }
+    .order-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--white); margin-bottom: 44px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 840px; margin: 0 auto 36px; }
+    .step-card {
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 30px 22px;
+      text-align: center;
+      transition: background 0.25s;
+    }
+    .step-card:hover { background: rgba(255,255,255,0.2); }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.5rem;
+      color: rgba(255,255,255,0.25);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .step-card p { font-size: 0.9rem; color: rgba(255,255,255,0.9); line-height: 1.6; font-weight: 500; }
+    .order-payment {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 24px;
+    }
+
+    /* ══════════════════════════════
+       CONTACT
+    ══════════════════════════════ */
+    #contact { background: var(--dark); }
+    #contact .section-label { color: var(--coral); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .contact-info { color: rgba(255,255,255,0.7); }
+    .contact-detail { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; font-size: 0.93rem; }
+    .contact-detail i { color: var(--coral); width: 18px; flex-shrink: 0; margin-top: 3px; }
+    .contact-detail a { color: rgba(255,255,255,0.7); transition: color 0.2s; }
+    .contact-detail a:hover { color: var(--coral); }
+    .hours-block {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 16px 0;
+    }
+    .hours-block .hours-line { font-size: 0.88rem; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
+    .hours-block .hours-line:last-child { margin-bottom: 0; }
+    .hours-block .hours-line strong { color: var(--coral); }
+    .payment-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 16px;
+    }
+    .payment-info i { color: var(--coral); }
+    .map-wrap { margin-top: 22px; border-radius: 8px; overflow: hidden; }
+
+    /* Form */
+    .contact-form h3 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--white); margin-bottom: 24px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--coral); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-success {
+      display: none;
+      background: rgba(232,88,42,0.1);
+      border: 1px solid rgba(232,88,42,0.3);
+      border-radius: 6px;
+      padding: 16px 20px;
+      color: var(--coral);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    #footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 44px 28px; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      align-items: center; gap: 24px;
+    }
+    .footer-logo img { max-height: 45px; object-fit: contain; margin-bottom: 8px; }
+    .footer-logo p { font-size: 0.78rem; color: rgba(255,255,255,0.3); line-height: 1.6; }
+    .footer-center { text-align: center; font-size: 0.74rem; color: rgba(255,255,255,0.18); line-height: 2; }
+    .footer-right { text-align: right; }
+    .footer-right a { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--coral); margin-bottom: 8px; transition: opacity 0.2s; }
+    .footer-right a:hover { opacity: 0.7; }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 1024px) { .pillars-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .nav-links, .nav-right .btn { display: none; }
+      .hamburger { display: flex; }
+      .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      .spec-grid   { grid-template-columns: 1fr; gap: 36px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid  { grid-template-columns: 1fr; gap: 36px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .steps-grid  { grid-template-columns: 1fr; max-width: 380px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+      .footer-right { text-align: center; }
+      .footer-right a { justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      section { padding: 56px 16px; }
+      #pillars, #order { padding: 52px 16px; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .hero-ctas .btn { width: 100%; max-width: 300px; text-align: center; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .pillars-grid { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="images/logo.png" alt="Hokkaido Sushi Bar Leuven" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#menu"    data-nl="Menu"      data-en="Menu">Menu</a></li>
+      <li><a href="#about"   data-nl="Over ons"  data-en="About">Over ons</a></li>
+      <li><a href="#order"   data-nl="Bestellen" data-en="Order">Bestellen</a></li>
+      <li><a href="#contact" data-nl="Contact"   data-en="Contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://hokkaido.klikeneet.be/" target="_blank" rel="noopener"
+         class="btn btn-coral" data-nl="Bestel online" data-en="Order online">Bestel online</a>
+      <div class="lang-toggle" id="langToggle">
+        <span id="langNL" class="active">NL</span>
+        <span class="sep">|</span>
+        <span id="langEN">EN</span>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu"    data-nl="Menu"      data-en="Menu">Menu</a>
+  <a href="#about"   data-nl="Over ons"  data-en="About">Over ons</a>
+  <a href="#order"   data-nl="Bestellen" data-en="Order">Bestellen</a>
+  <a href="#contact" data-nl="Contact"   data-en="Contact">Contact</a>
+  <a href="https://hokkaido.klikeneet.be/" target="_blank" rel="noopener"
+     class="btn btn-coral" style="text-align:center;"
+     data-nl="Bestel online" data-en="Order online">Bestel online</a>
+</div>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-watermark">北海道</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      🍣 <span data-nl="Mechelsestraat 46 · Leuven · Japanse Keuken"
+               data-en="Mechelsestraat 46 · Leuven · Japanese Cuisine">
+        Mechelsestraat 46 · Leuven · Japanse Keuken
+      </span>
+    </div>
+
+    <span class="hero-h1-main">Hokkaido</span>
+    <span class="hero-h1-sub">Sushi Bar</span>
+
+    <p class="hero-sub">
+      <span data-nl="Vers, verfijnd en vol smaak —<br>de beste sushi in Leuven"
+            data-en="Fresh, refined and full of flavour —<br>the best sushi in Leuven">
+        Vers, verfijnd en vol smaak —<br>de beste sushi in Leuven
+      </span>
+    </p>
+
+    <p class="hero-quote">
+      <span data-nl="&ldquo;Hoedje af voor de chef — de beste futomaki van Leuven!&rdquo;"
+            data-en="&ldquo;Hats off to the chef — the best futomaki in Leuven!&rdquo;">
+        &ldquo;Hoedje af voor de chef — de beste futomaki van Leuven!&rdquo;
+      </span>
+    </p>
+
+    <div class="hero-icons">
+      <span class="hero-icon-item"><span class="icon-emoji">🍣</span>
+        <span data-nl="Verse sushi" data-en="Fresh sushi">Verse sushi</span>
+      </span>
+      <span class="hero-icon-item"><span class="icon-emoji">🎌</span> Japans</span>
+      <span class="hero-icon-item"><span class="icon-emoji">👨‍👩‍👧</span>
+        <span data-nl="Gezinsvriendelijk" data-en="Family friendly">Gezinsvriendelijk</span>
+      </span>
+      <span class="hero-icon-item"><span class="icon-emoji">🛵</span>
+        <span data-nl="Afhaal" data-en="Pickup">Afhaal</span>
+      </span>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="https://hokkaido.klikeneet.be/" target="_blank" rel="noopener"
+         class="btn btn-coral" data-nl="Bestel online" data-en="Order online">Bestel online</a>
+      <a href="#menu" class="btn btn-white-outline"
+         data-nl="Bekijk menu" data-en="View menu">Bekijk menu</a>
+    </div>
+
+    <div class="hero-status">
+      <span class="pulse-dot"></span>
+      <span data-nl="Open: 17:00 – 21:30 · Bestel voor 20:30"
+            data-en="Open: 17:00 – 21:30 · Order before 20:30">
+        Open: 17:00 – 21:30 · Bestel voor 20:30
+      </span>
+    </div>
+  </div>
+
+  <div class="hero-scroll"><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+<!-- ══════════════════════════════
+     PILLAR STRIP
+══════════════════════════════ -->
+<section id="pillars">
+  <div class="section-inner">
+    <div class="pillars-grid">
+      <div class="pillar-card fade-up">
+        <span class="pillar-emoji">🎌</span>
+        <div class="pillar-title" data-nl="Authentiek Japans" data-en="Authentic Japanese">Authentiek Japans</div>
+        <p class="pillar-desc"
+           data-nl="Hokkaido — vernoemd naar het Japanse eiland bekend om zijn uitzonderlijke zeevruchten"
+           data-en="Hokkaido — named after the Japanese island famous for its exceptional seafood">
+          Hokkaido — vernoemd naar het Japanse eiland bekend om zijn uitzonderlijke zeevruchten
+        </p>
+      </div>
+      <div class="pillar-card fade-up">
+        <span class="pillar-emoji">🍣</span>
+        <div class="pillar-title" data-nl="Expertchef" data-en="Expert chef">Expertchef</div>
+        <p class="pillar-desc"
+           data-nl="Stevig gerold, mooi afgewerkt — hoedje af voor onze chef!"
+           data-en="Firmly rolled, beautifully finished — hats off to our chef!">
+          Stevig gerold, mooi afgewerkt — hoedje af voor onze chef!
+        </p>
+      </div>
+      <div class="pillar-card fade-up">
+        <span class="pillar-emoji">👨‍👩‍👧</span>
+        <div class="pillar-title" data-nl="Gezinsvriendelijk" data-en="Family friendly">Gezinsvriendelijk</div>
+        <p class="pillar-desc"
+           data-nl="De beste plek voor jou en je gezin om te genieten van Japanse keuken"
+           data-en="The best place for you and your family to enjoy Japanese cuisine">
+          De beste plek voor jou en je gezin om te genieten van Japanse keuken
+        </p>
+      </div>
+      <div class="pillar-card fade-up">
+        <span class="pillar-emoji">🛵</span>
+        <div class="pillar-title" data-nl="Afhalen &amp; levering" data-en="Takeaway &amp; delivery">Afhalen &amp; levering</div>
+        <p class="pillar-desc"
+           data-nl="Online bestellen via klikeneet.be — snel, makkelijk en vers"
+           data-en="Order online via klikeneet.be — fast, easy and fresh">
+          Online bestellen via klikeneet.be — snel, makkelijk en vers
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     MENU HIGHLIGHTS
+══════════════════════════════ -->
+<section id="menu">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-nl="Japanse keuken" data-en="Japanese cuisine">Japanse keuken</p>
+    <h2 class="section-title dark fade-up" data-nl="Onze Specialiteiten" data-en="Our Specialities">Onze Specialiteiten</h2>
+
+    <div class="spec-grid">
+      <div class="spec-card fade-up">
+        <span class="spec-badge">⭐ MUST TRY</span>
+        <span class="spec-icon">🌯</span>
+        <h3 data-nl="Futomaki — de beste van Leuven" data-en="Futomaki — the best in Leuven">Futomaki — de beste van Leuven</h3>
+        <p data-nl="Wonderlijk licht, lekker krokant en niet vet. Onze futomaki's zijn de beste van Leuven — een must-try bij elke bestelling."
+           data-en="Wonderfully light, nicely crispy and not greasy. Our futomakis are the best in Leuven — a must-try with every order.">
+          Wonderlijk licht, lekker krokant en niet vet. Onze futomaki's zijn de beste van Leuven — een must-try bij elke bestelling.
+        </p>
+      </div>
+      <div class="spec-card fade-up">
+        <span class="spec-icon">🐟</span>
+        <h3 data-nl="Verse Sashimi &amp; Nigiri" data-en="Fresh Sashimi &amp; Nigiri">Verse Sashimi &amp; Nigiri</h3>
+        <p data-nl="Rijkelijke portie verse vis, niet spaarzaam gebruikt. Stevige rijst-vis verhouding — kwaliteit die opvalt."
+           data-en="Generous portion of fresh fish, not sparingly used. Strong rice-to-fish ratio — quality that stands out.">
+          Rijkelijke portie verse vis, niet spaarzaam gebruikt. Stevige rijst-vis verhouding — kwaliteit die opvalt.
+        </p>
+      </div>
+      <div class="spec-card fade-up">
+        <span class="spec-badge">⭐ BESTSELLER</span>
+        <span class="spec-icon">🍱</span>
+        <h3 data-nl="48-delig Menu" data-en="48-piece Menu">48-delig Menu</h3>
+        <p data-nl="Onze populairste deal — 48 stuks verse sushi. Perfecte keuze voor thuis genieten met het gezin. Bestel online voor 20:30."
+           data-en="Our most popular deal — 48 pieces of fresh sushi. Perfect choice for enjoying at home with the family. Order online before 20:30.">
+          Onze populairste deal — 48 stuks verse sushi. Perfecte keuze voor thuis genieten met het gezin. Bestel online voor 20:30.
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-cta fade-up">
+      <a href="https://hokkaido.klikeneet.be/" target="_blank" rel="noopener">
+        <span data-nl="Online bestellen →" data-en="Order online →">Online bestellen →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     GALLERY
+══════════════════════════════ -->
+<section id="gallery">
+  <div class="section-inner">
+    <p class="section-label dark-lbl fade-up" data-nl="Foto's" data-en="Photos">Foto's</p>
+    <h2 class="section-title light fade-up" data-nl="Onze Sushi" data-en="Our Sushi">Onze Sushi</h2>
+
+    <div class="gallery-grid">
+      <div class="gallery-item fade-up"><img src="images/food-1.png" alt="Hokkaido sushi" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-2.png" alt="Hokkaido sashimi" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-3.png" alt="Hokkaido nigiri" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-4.png" alt="Hokkaido futomaki" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-5.png" alt="Hokkaido rolls" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-6.png" alt="Hokkaido specialiteit" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-7.png" alt="Hokkaido sushi set" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-8.png" alt="Hokkaido maki" loading="lazy" /></div>
+      <div class="gallery-item fade-up"><img src="images/food-9.png" alt="Hokkaido menu" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     ABOUT
+══════════════════════════════ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img fade-up">
+        <img src="images/food-1.png" alt="Hokkaido Sushi Bar Leuven" />
+      </div>
+      <div class="about-text">
+        <p class="section-label fade-up" data-nl="Ons verhaal" data-en="Our story">Ons verhaal</p>
+        <h2 class="section-title dark fade-up" style="margin-bottom:14px;"
+            data-nl="De smaak van Hokkaido."
+            data-en="The taste of Hokkaido.">
+          De smaak van Hokkaido.
+        </h2>
+        <p class="about-sub fade-up"
+           data-nl="Vers, verfijnd, vol smaak — Japanse keuken op zijn best."
+           data-en="Fresh, refined, full of flavour — Japanese cuisine at its best.">
+          Vers, verfijnd, vol smaak — Japanse keuken op zijn best.
+        </p>
+        <p class="about-body fade-up"
+           data-nl="Hokkaido Sushi Bar is vernoemd naar het meest noordelijke eiland van Japan — bekend om zijn uitzonderlijke zeevruchten en pure ingrediënten. In ons restaurant op Mechelsestraat 46 in Leuven serveren we dagverse sushi, sashimi en nigiri — bereid door getalenteerde chefs met oog voor detail. Voor het gezin, voor een date, voor iedereen."
+           data-en="Hokkaido Sushi Bar is named after Japan's northernmost island — famous for its exceptional seafood and pure ingredients. At our restaurant on Mechelsestraat 46 in Leuven we serve daily fresh sushi, sashimi and nigiri — prepared by talented chefs with an eye for detail. For the family, for a date, for everyone.">
+          Hokkaido Sushi Bar is vernoemd naar het meest noordelijke eiland van Japan — bekend om zijn uitzonderlijke zeevruchten en pure ingrediënten. In ons restaurant op Mechelsestraat 46 in Leuven serveren we dagverse sushi, sashimi en nigiri — bereid door getalenteerde chefs met oog voor detail. Voor het gezin, voor een date, voor iedereen.
+        </p>
+        <div class="about-stats fade-up">
+          <span class="about-stat"><i class="fa-solid fa-award"></i>
+            <span data-nl="Beste futomaki" data-en="Best futomaki">Beste futomaki</span>
+          </span>
+          <span class="about-stat"><i class="fa-solid fa-fish"></i>
+            <span data-nl="Verse vis" data-en="Fresh fish">Verse vis</span>
+          </span>
+          <span class="about-stat"><i class="fa-solid fa-users"></i>
+            <span data-nl="Gezinsvriendelijk" data-en="Family friendly">Gezinsvriendelijk</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     REVIEWS
+══════════════════════════════ -->
+<section id="reviews">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-nl="Gastrecensies" data-en="Guest reviews">Gastrecensies</p>
+    <h2 class="section-title dark fade-up" data-nl="Wat onze gasten zeggen" data-en="What our guests say">Wat onze gasten zeggen</h2>
+
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">&ldquo;Hokkaido Sushi is de beste in zijn klasse in Leuven. De rijst-vis verhouding is genereus, de vis was zeer vers. De sushi is stevig gerold, mooi en vakkundig afgewerkt. Hoedje af voor de chef!&rdquo;</p>
+        <span class="review-source">Restaurant Guru</span>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">&ldquo;Beste futomakis die ik gegeten heb in Leuven — wonderlijk licht, lekker krokant en niet vet. De klantenservice was uitstekend: de jongeman was vriendelijk en professioneel.&rdquo;</p>
+        <span class="review-source">Restaurant Guru</span>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">&ldquo;Hokkaido is de beste plek voor jou en je gezin om te genieten van de Japanse keuken. Highly palatable food, comfy ambiance, warm vibes!&rdquo;</p>
+        <span class="review-source">Facebook</span>
+      </div>
+    </div>
+
+    <div class="reviews-cta fade-up">
+      <a href="https://maps.google.com/?q=Hokkaido+Sushi+Bar+Mechelsestraat+46+Leuven" target="_blank" rel="noopener">
+        <i class="fa-brands fa-google"></i>
+        <span data-nl="Alle reviews op Google Maps" data-en="All reviews on Google Maps">Alle reviews op Google Maps</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     HOW TO ORDER
+══════════════════════════════ -->
+<section id="order">
+  <div class="section-inner">
+    <h2 class="order-title fade-up"
+        data-nl="Hoe bestellen?" data-en="How to order?">Hoe bestellen?</h2>
+
+    <div class="steps-grid fade-up">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <p data-nl="Ga naar hokkaido.klikeneet.be" data-en="Go to hokkaido.klikeneet.be">Ga naar hokkaido.klikeneet.be</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <p data-nl="Kies je sushi — bestel voor 20:30" data-en="Choose your sushi — order before 20:30">Kies je sushi — bestel voor 20:30</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <p data-nl="Afhalen of levering — geniet thuis!" data-en="Pickup or delivery — enjoy at home!">Afhalen of levering — geniet thuis!</p>
+      </div>
+    </div>
+
+    <p class="order-payment fade-up">
+      <span data-nl="💳 Betaling: contant, overschrijving of online"
+            data-en="💳 Payment: cash, bank transfer or online">
+        💳 Betaling: contant, overschrijving of online
+      </span>
+    </p>
+
+    <a href="https://hokkaido.klikeneet.be/" target="_blank" rel="noopener"
+       class="btn btn-white fade-up"
+       data-nl="Bestel nu op hokkaido.klikeneet.be →"
+       data-en="Order now at hokkaido.klikeneet.be →">
+      Bestel nu op hokkaido.klikeneet.be →
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     CONTACT & HOURS
+══════════════════════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-nl="Kom langs of bestel" data-en="Visit us or order">Kom langs of bestel</p>
+    <h2 class="section-title light fade-up" data-nl="Contact &amp; Openingsuren" data-en="Contact &amp; Opening Hours">Contact &amp; Openingsuren</h2>
+
+    <div class="contact-grid">
+      <!-- Info + Map -->
+      <div class="contact-info">
+        <div class="contact-detail fade-up">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Mechelsestraat 46, 3000 Leuven</span>
+        </div>
+        <div class="contact-detail fade-up">
+          <i class="fa-solid fa-phone"></i>
+          <a href="tel:+3216633412">+32 16 63 34 12</a>
+        </div>
+        <div class="contact-detail fade-up">
+          <i class="fa-brands fa-instagram"></i>
+          <a href="https://instagram.com/hokkaidosushileuven" target="_blank" rel="noopener">@hokkaidosushileuven</a>
+        </div>
+
+        <div class="hours-block fade-up">
+          <p class="hours-line">
+            <strong data-nl="Openingsuren" data-en="Opening hours">Openingsuren</strong>
+          </p>
+          <p class="hours-line">
+            <span data-nl="Afhalen / ter plaatse:" data-en="Pickup / dine-in:">Afhalen / ter plaatse:</span>
+            <strong>17:00 – 21:30</strong>
+          </p>
+          <p class="hours-line">
+            <span data-nl="Bestel voor:" data-en="Order before:">Bestel voor:</span>
+            <strong>20:30</strong>
+          </p>
+        </div>
+
+        <div class="payment-info fade-up">
+          <i class="fa-solid fa-credit-card"></i>
+          <span data-nl="Contant · Overschrijving · Online betaling"
+                data-en="Cash · Bank transfer · Online payment">
+            Contant · Overschrijving · Online betaling
+          </span>
+        </div>
+
+        <div class="map-wrap fade-up">
+          <iframe
+            src="https://www.google.com/maps?q=Mechelsestraat+46,+3000+Leuven&output=embed"
+            width="100%" height="280"
+            style="border:0;border-radius:8px;display:block;"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form fade-up">
+        <h3 data-nl="Stuur ons een bericht" data-en="Send us a message">Stuur ons een bericht</h3>
+
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label data-nl="Naam" data-en="Name">Naam</label>
+            <input type="text" id="fname"
+                   data-placeholder-nl="Uw naam"
+                   data-placeholder-en="Your name"
+                   placeholder="Uw naam" required />
+          </div>
+          <div class="form-group">
+            <label data-nl="Email" data-en="Email">Email</label>
+            <input type="email" id="femail"
+                   data-placeholder-nl="uw@email.com"
+                   data-placeholder-en="your@email.com"
+                   placeholder="uw@email.com" required />
+          </div>
+          <div class="form-group">
+            <label data-nl="Bericht" data-en="Message">Bericht</label>
+            <textarea id="fmessage"
+                      data-placeholder-nl="Uw bericht..."
+                      data-placeholder-en="Your message..."
+                      placeholder="Uw bericht..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-coral" style="width:100%;padding:14px;"
+                  data-nl="Verstuur →" data-en="Send →">Verstuur →</button>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <span data-nl="Bedankt! We antwoorden zo snel mogelijk."
+                data-en="Thanks! We'll get back to you soon.">
+            Bedankt! We antwoorden zo snel mogelijk.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="images/logo.png" alt="Hokkaido Sushi Bar" />
+      <p>
+        <span data-nl="Japanse Sushi Bar · Mechelsestraat 46 · Leuven"
+              data-en="Japanese Sushi Bar · Mechelsestraat 46 · Leuven">
+          Japanse Sushi Bar · Mechelsestraat 46 · Leuven
+        </span>
+      </p>
+    </div>
+
+    <div class="footer-center">
+      <p>© 2026 · Hokkaido Sushi Bar</p>
+      <p>Leuven</p>
+      <p style="margin-top:4px;font-size:0.68rem;opacity:0.5;">
+        <span data-nl="Open 17:00–21:30 · Bestel voor 20:30"
+              data-en="Open 17:00–21:30 · Order before 20:30">
+          Open 17:00–21:30 · Bestel voor 20:30
+        </span>
+      </p>
+    </div>
+
+    <div class="footer-right">
+      <a href="https://instagram.com/hokkaidosushileuven" target="_blank" rel="noopener">
+        <i class="fa-brands fa-instagram"></i> @hokkaidosushileuven
+      </a>
+      <a href="https://facebook.com/Hokkaido-sushi" target="_blank" rel="noopener">
+        <i class="fa-brands fa-facebook-f"></i> Hokkaido sushi
+      </a>
+      <a href="https://hokkaido.klikeneet.be/" target="_blank" rel="noopener">
+        <i class="fa-solid fa-utensils"></i> hokkaido.klikeneet.be
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+  /* ── Language system ── */
+  let currentLang = 'nl';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-nl]').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val === null) return;
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = val;
+      } else {
+        el.innerHTML = val;
+      }
+    });
+
+    document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(el => {
+      el.placeholder = el.getAttribute('data-placeholder-' + lang);
+    });
+
+    document.getElementById('langNL').classList.toggle('active', lang === 'nl');
+    document.getElementById('langEN').classList.toggle('active', lang === 'en');
+  }
+
+  document.getElementById('langToggle').addEventListener('click', e => {
+    const t = e.target.closest('#langNL, #langEN');
+    if (!t) return;
+    setLang(t.id === 'langNL' ? 'nl' : 'en');
+  });
+
+  /* ── Navbar scroll ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+
+  /* ── Hamburger ── */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  /* ── Smooth scroll ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  /* ── IntersectionObserver ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Contact form ── */
+  const form        = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!document.getElementById('fname').value.trim())    return;
+    if (!document.getElementById('femail').value.trim())   return;
+    if (!document.getElementById('fmessage').value.trim()) return;
+    form.style.display = 'none';
+    formSuccess.style.display = 'block';
+  });
+
+  /* ── Init ── */
+  setLang('nl');
+</script>
+
+</body>
+</html>
